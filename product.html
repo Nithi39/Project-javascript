@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Details</title>
+    <link rel="stylesheet" href="./product.html">
+</head>
+<body>
+    <header class="heading">
+        <h1 class="head1">Ecommerce</h1>
+        <ul class="head2">
+           <li class="nav"><a href="./index.html">Home</a></li>
+            <li><a href="./product.html">Products</a></li>
+            <li><a href="./about.html">About</a></li>
+            <li><a href="./contact.html">Contact</a></li>
+        </ul>
+        <ul class="head3">
+            <li class="border1"><a href="./Login.html">🡆Login</a></li>
+            <li class="border2"><a href="./Register.html" >👤Register</a></li>
+            <li class="border3"><a href="./Cart.html" >🛒Cart (<span id="cart-count">0</span>)</a></li>
+        </ul>
+    </header>
+    <!-- <div class="banner">
+        <div class="banner-wrapper">
+            <h1 class="Banner-heading">New season Arrivals</h1>
+            <p class="Banner-heading">This is a wider card with supporting text below as a natural lead-in to additional content.This content is a little bit longer.</p>
+    </div>
+    </div> -->
+
+
+
+<!--  Filter buttons-->
+
+
+<div class="latest-products">
+    <h1>Latest Products</h1>
+
+    <div class="button">
+        <button type="button" class="buttons" data-filter="all">All</button>
+        <button type="button" class="buttons" data-filter="men's clothing">Men's Clothing</button>
+        <button type="button" class="buttons" data-filter="women's clothing">Women's Clothing</button>
+        <button type="button" class="buttons" data-filter="jewelery">Jewellery</button>
+        <button type="button" class="buttons" data-filter="electronics">Electronics</button>
+    </div>
+</div>
+
+<!-- Product container -->
+<div id="product-container"></div>
+
+
+
+<script>
+
+  let productContainer = document.getElementById("product-container");
+
+   //  Function to update the cart count in the navbar
+  function updateCartCount() {
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    const count = cart.reduce((total, item) => total + item.quantity, 0);
+    const cartCountElement = document.getElementById("cart-count");
+    if (cartCountElement) {
+      cartCountElement.textContent = count;
+    }
+  }
+
+  async function getData() {
+    const res = await fetch('https://fakestoreapi.com/products');
+    const data = await res.json();
+
+    data.forEach((ele) => {
+      let itemContainer = document.createElement("div");
+      itemContainer.classList.add("product-item");
+      itemContainer.setAttribute("data-category", ele.category);
+
+      let createImgEle = document.createElement("img");
+      createImgEle.setAttribute("src", ele.image);
+      createImgEle.setAttribute("class", "myImages");
+
+      let createTitleEle = document.createElement("h3");
+      createTitleEle.textContent = ele.title.substring(0, 10) + "...";
+
+      let createDescEle = document.createElement("p");
+      createDescEle.textContent = ele.description.substring(0, 95) + "...";
+
+      let createPriceEle = document.createElement("span");
+      createPriceEle.textContent = "$" + ele.price;
+      createPriceEle.classList.add("price");
+
+      // Buttons
+      let buttonContainer = document.createElement("div");
+      buttonContainer.classList.add("button-container");
+
+      let detailsBtn = document.createElement("button");
+      detailsBtn.textContent = "Details";
+      detailsBtn.classList.add("details-btn");
+
+      let cartBtn = document.createElement("button");
+      cartBtn.textContent = "Add to Cart";
+      cartBtn.classList.add("cart-btn");
+
+      // Add to Cart functionality
+      cartBtn.addEventListener("click", () => {
+        let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+        const existing = cart.find(item => item.id === ele.id);
+        if (!existing) {
+          cart.push({
+            id: ele.id,
+            title: ele.title,
+            price: ele.price,
+            image: ele.image,
+            quantity: 1
+          });
+        } else {
+          existing.quantity += 1;
+        }
+
+        localStorage.setItem("cart", JSON.stringify(cart));
+        updateCartCount();
+        alert("Product added to cart!");
+      });
+
+      buttonContainer.appendChild(detailsBtn);
+      buttonContainer.appendChild(cartBtn);
+
+      // Append all elements
+      itemContainer.appendChild(createImgEle);
+      itemContainer.appendChild(createTitleEle);
+      itemContainer.appendChild(createDescEle);
+      itemContainer.appendChild(createPriceEle);
+      itemContainer.appendChild(buttonContainer);
+
+      productContainer.appendChild(itemContainer);
+    });
+  }
+
+  getData();
+  updateCartCount();
+
+  // Filter functionality
+  document.querySelectorAll(".buttons").forEach(button => {
+    button.addEventListener("click", () => {
+      const filter = button.getAttribute("data-filter");
+      const allProducts = document.querySelectorAll(".product-item");
+
+      allProducts.forEach(product => {
+        const category = product.getAttribute("data-category");
+
+        if (filter === "all" || category === filter) {
+          product.style.display = "block";
+        } else {
+          product.style.display = "none";
+        }
+      });
+    });
+  });
+</script>
+</body>
+</html>

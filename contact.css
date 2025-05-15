@@ -1,0 +1,104 @@
+
+    *{
+            box-sizing: border-box;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+       
+        .head{
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            background: rgba(0, 0, 0, 0.1);
+            align-items: center;
+            padding-top: 15px;
+            padding-bottom: 15px;
+        }
+
+        .head2{
+            display: flex;
+            flex-wrap: wrap;
+            text-decoration: none;
+            list-style-type: none;
+            padding: 10px;
+        }
+
+        .head3{
+            display: flex;
+            flex-wrap: wrap;
+            list-style-type: none;
+            /* padding: 10px; */
+            justify-content: space-around;
+        }
+
+        ul li a{
+            text-decoration: none;
+            list-style-type: none;
+            padding: 10px;
+            font-size: 20px;
+            color: black;
+            opacity: 0.8;
+        }
+        .border1 ,.border2,.border3{
+            border: 2px solid black;
+            padding: 5px;
+            border-radius: 8px;
+            margin-right: 10px;
+        }
+
+
+    .contact-form{
+        font-size: 50px;
+        margin-bottom: 20px;
+    }
+
+    .hr{
+            margin-bottom: 70px;
+        }
+    .login{
+        font-family: Arial, Helvetica, sans-serif;
+        width: 1700px;
+        padding: 15px;
+        margin: 50px auto;
+        text-align: center;
+    }
+    .form-group label{
+        display: block;
+        font-size: 25px;
+        margin-bottom: 10px;
+        
+    }
+
+    .form-control{
+        font-size: 18px;
+        height: 35px;
+        width: 400px;
+        font-size: 25px;
+        outline: none;
+        margin-bottom: 15px;
+    }
+
+    .login-btn{
+        margin-left: 130px;
+        background-color: rgb(112,112,114);
+        color: white;
+        margin-top: 10px;
+        font-size: 25px;
+        padding: 13px;
+        width: 125px;
+        border: none;
+
+    }
+     .form-group {
+            text-align: left;
+            margin-left: 700px;
+            margin-bottom: 15px; 
+            font-size: 25px;
+        }
+
+        .footer{
+            font-size: 25px;
+            text-align: center;
+            margin-left: 100px;
+        }
